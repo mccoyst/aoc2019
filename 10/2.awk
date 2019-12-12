@@ -28,22 +28,12 @@ END {
 			t = -1.5707963268
 			r = -yy
 		}else{
-			if(yy >= 0 && xx < 0){
-				math = "echo 'a("yy"/"xx")+3.1415926536;sqrt(("xx")^2 + ("yy")^2)' | 9 bc -l"
-			}else if(yy < 0 && xx < 0){
-				math = "echo 'a("yy"/"xx")-3.1415926536;sqrt(("xx")^2 + ("yy")^2)' | 9 bc -l"
-			}else{
-				math = "echo 'a("yy"/"xx");sqrt(("xx")^2 + ("yy")^2)' | 9 bc -l"
-			}
-			math | getline v
-			t = v
-			math | getline v
-			r = v
-			close(math)
+			t = atan2(yy, xx)
+			r = sqrt(yy*yy + xx*xx)
 		}
 		if(t < 0){
 			t += 6.2831853072
 		}
-		print r " " t " " (mx-1)","(my-1)
+		print t " " r " " (mx-1)","(my-1) " " xx","yy
 	}
 }
